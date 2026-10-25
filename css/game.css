@@ -609,6 +609,160 @@ body, html {
   display: flex !important;
 }
 
+/* ============================================================
+   Loading Screen - shown before every story intro so the scene
+   assets and the montage media are ready before the cutscene.
+   ============================================================ */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5000;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: #fef08a;
+  text-align: center;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(30, 41, 59, 0.90) 0%, rgba(5, 7, 12, 0.985) 68%),
+    #05070c;
+}
+
+#loading-screen.visible {
+  opacity: 1;
+}
+
+#loading-screen::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 52vmin;
+  height: 52vmin;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0) 70%);
+  animation: loading-breathe 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+#loading-screen-inner {
+  position: relative;
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+#loading-screen-sigil {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  margin-bottom: 0.35rem;
+}
+
+#loading-screen-sigil .sigil-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 158, 11, 0.38);
+}
+
+#loading-screen-sigil .sigil-ring:nth-child(1) {
+  border-top-color: rgba(253, 230, 138, 0.95);
+  border-right-color: rgba(245, 158, 11, 0.12);
+  animation: sigil-spin 3.6s linear infinite;
+}
+
+#loading-screen-sigil .sigil-ring:nth-child(2) {
+  inset: 14px;
+  border-bottom-color: rgba(253, 230, 138, 0.9);
+  border-left-color: rgba(245, 158, 11, 0.1);
+  animation: sigil-spin 5.4s linear infinite reverse;
+}
+
+#loading-screen-sigil .sigil-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fde68a 0%, #f59e0b 45%, rgba(180, 83, 9, 0) 75%);
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
+  animation: sigil-pulse 2.4s ease-in-out infinite;
+}
+
+#loading-screen-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.45rem;
+  letter-spacing: 0.48rem;
+  color: #fef08a;
+  text-shadow: 0 0 24px rgba(245, 158, 11, 0.55);
+}
+
+#loading-screen-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.06rem;
+  color: #cbd5e1;
+  min-height: 1.4em;
+}
+
+#loading-screen-bar {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  height: 6px;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  overflow: hidden;
+}
+
+#loading-screen-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #b45309 0%, #f59e0b 55%, #fde68a 100%);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+  transition: width 0.25s ease-out;
+}
+
+#loading-screen-status {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.28rem;
+  text-transform: uppercase;
+  color: rgba(203, 213, 225, 0.72);
+}
+
+@keyframes loading-breathe {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.92); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.06); }
+}
+
+@keyframes sigil-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sigil-pulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.72; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+
 /* Start Screen Level Select Overlay */
 #start-overlay {
   position: fixed;

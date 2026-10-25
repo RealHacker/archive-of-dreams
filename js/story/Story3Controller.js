@@ -116,6 +116,15 @@ class Story3Controller {
     if (subBar) subBar.classList.remove('visible');
   }
 
+  // Single source of truth for the intro media.  The loading screen preloads
+  // exactly these URLs before the montage is allowed to start.
+  getIntroMedia() {
+    return {
+      video: 'assets/videos/cutscene_3a_venice_canal.mp4?v=20261024_1',
+      audio: 'assets/audio/audio_story3_matteo_opening.mp3?v=20261024_1'
+    };
+  }
+
   startStory() {
     console.log("Starting Story 3: The Heretic's Palette (Venice, 1577)...");
     this.state = 'CUTSCENE_3A';
@@ -125,6 +134,7 @@ class Story3Controller {
   playCutscene3A() {
     const modal = document.getElementById('cutscene-modal');
     const video = document.getElementById('cutscene-video');
+    const media = this.getIntroMedia();
 
     if (!modal || !video) {
       this.onCutsceneComplete();
@@ -132,11 +142,11 @@ class Story3Controller {
     }
 
     modal.style.display = 'flex';
-    video.src = 'assets/videos/cutscene_3a_venice_canal.mp4?v=20261024_1';
+    video.src = media.video;
     video.currentTime = 0;
 
     if (this.activeVoice) this.activeVoice.pause();
-    this.activeVoice = new Audio('assets/audio/audio_story3_matteo_opening.mp3?v=20261024_1');
+    this.activeVoice = new Audio(media.audio);
     this.activeVoice.volume = 0.95;
     this.activeVoice.play().catch(e => console.log("Audio autoplay prevented:", e));
 

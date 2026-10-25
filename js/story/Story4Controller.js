@@ -114,6 +114,15 @@ class Story4Controller {
     this.hideSubtitle();
   }
 
+  // Single source of truth for the intro media.  The loading screen preloads
+  // exactly these URLs before the montage is allowed to start.
+  getIntroMedia() {
+    return {
+      video: 'assets/videos/cutscene_4a_deep_space.mp4?v=20261024_1',
+      audio: 'assets/audio/audio_story4_julian_opening.mp3?v=20261024_1'
+    };
+  }
+
   startStory() {
     console.log("Starting Story 4: The Last Cradle (Deep Space, 2188)...");
     this.state = 'CUTSCENE_4A';
@@ -124,15 +133,16 @@ class Story4Controller {
     const cutsceneModal = document.getElementById('cutscene-modal');
     const videoEl = document.getElementById('cutscene-video');
     const skipBtn = document.getElementById('skip-cutscene');
+    const media = this.getIntroMedia();
 
     if (cutsceneModal && videoEl) {
       cutsceneModal.style.display = 'flex';
       cutsceneModal.classList.add('active');
-      videoEl.src = 'assets/videos/cutscene_4a_deep_space.mp4?v=20261024_1';
+      videoEl.src = media.video;
       videoEl.currentTime = 0;
 
       if (this.activeVoice) this.activeVoice.pause();
-      this.activeVoice = new Audio('assets/audio/audio_story4_julian_opening.mp3?v=20261024_1');
+      this.activeVoice = new Audio(media.audio);
       this.activeVoice.volume = 0.95;
       this.activeVoice.play().catch(e => console.warn('Audio 4A autoplay blocked:', e));
 

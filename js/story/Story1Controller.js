@@ -196,16 +196,26 @@ class Story1Controller {
     }
   }
 
+  // Single source of truth for the intro media.  The loading screen preloads
+  // exactly these URLs before the montage is allowed to start.
+  getIntroMedia() {
+    return {
+      video: 'assets/videos/cutscene_1a_london_mist.mp4?v=20261024_1',
+      audio: 'assets/audio/audio_story1_jonathan_opening.mp3?v=20261024_1'
+    };
+  }
+
   startStory() {
     const cutsceneModal = document.getElementById('cutscene-modal');
     const cutsceneVideo = document.getElementById('cutscene-video');
+    const media = this.getIntroMedia();
 
     if (cutsceneModal && cutsceneVideo) {
       cutsceneModal.style.display = 'flex';
-      cutsceneVideo.src = 'assets/videos/cutscene_1a_london_mist.mp4?v=20261024_1';
+      cutsceneVideo.src = media.video;
       cutsceneVideo.currentTime = 0;
 
-      const voiceAudio = this.audio.playVoice('assets/audio/audio_story1_jonathan_opening.mp3?v=20261024_1');
+      const voiceAudio = this.audio.playVoice(media.audio);
       this.audio.playMontageIntro(1, cutsceneVideo, voiceAudio, () => this.endCutscene());
 
       cutsceneVideo.play().catch(e => {

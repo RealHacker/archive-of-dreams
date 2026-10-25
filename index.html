@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Archive of Dreams</title>
-  <link rel="stylesheet" href="css/game.css?v=20261024_3" />
+  <link rel="stylesheet" href="css/game.css?v=20261024_4" />
   <!-- Three.js & GLTF Loader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -172,6 +172,21 @@
   <div id="subtitle-bar">
     <div id="subtitle-speaker">Jonathan Finch</div>
     <div id="subtitle-text"></div>
+  </div>
+
+  <!-- Loading Screen: waits for scene assets + intro media before each story prologue -->
+  <div id="loading-screen">
+    <div id="loading-screen-inner">
+      <div id="loading-screen-sigil" aria-hidden="true">
+        <span class="sigil-ring"></span>
+        <span class="sigil-ring"></span>
+        <span class="sigil-core"></span>
+      </div>
+      <div id="loading-screen-title">PREPARING THE DREAM</div>
+      <div id="loading-screen-sub"></div>
+      <div id="loading-screen-bar"><div id="loading-screen-fill"></div></div>
+      <div id="loading-screen-status">Gathering assets&hellip;</div>
+    </div>
   </div>
 
   <!-- Cutscene Fullscreen Modal -->
@@ -356,12 +371,14 @@
 
   <!-- Game Scripts -->
   <script src="js/engine/AudioManager.js?v=20261024_3"></script>
-  <script src="js/engine/PlayerController.js?v=20261024_1"></script>
+  <script src="js/engine/PlayerController.js?v=20261024_4"></script>
   <script src="js/engine/InteractionManager.js?v=20261024_3"></script>
-  <script src="js/engine/SceneManager.js?v=20261024_3"></script>
-  <script src="js/engine/SceneManager2.js?v=20261024_3"></script>
-  <script src="js/engine/SceneManager3.js?v=20261024_3"></script>
-  <script src="js/engine/SceneManager4.js?v=20261024_3"></script>
+  <script src="js/engine/AssetTracker.js?v=20261024_4"></script>
+  <script src="js/engine/LoadingScreen.js?v=20261024_6"></script>
+  <script src="js/engine/SceneManager.js?v=20261024_4"></script>
+  <script src="js/engine/SceneManager2.js?v=20261024_4"></script>
+  <script src="js/engine/SceneManager3.js?v=20261024_4"></script>
+  <script src="js/engine/SceneManager4.js?v=20261024_4"></script>
   <script src="js/puzzles/Puzzle1_Escapement.js?v=20261024_3"></script>
   <script src="js/puzzles/Puzzle1_Lockbox.js?v=20261024_3"></script>
   <script src="js/puzzles/Puzzle1_Orrery.js?v=20261024_3"></script>
@@ -375,10 +392,10 @@
   <script src="js/puzzles/Puzzle4_Spectrometer.js?v=20261024_3"></script>
   <script src="js/puzzles/Puzzle4_HeritageCore.js?v=20261024_3"></script>
   <script src="js/story/IntroMontageData.js?v=20261024_3"></script>
-  <script src="js/story/Story1Controller.js?v=20261024_3"></script>
-  <script src="js/story/Story2Controller.js?v=20261024_3"></script>
-  <script src="js/story/Story3Controller.js?v=20261024_3"></script>
-  <script src="js/story/Story4Controller.js?v=20261024_3"></script>
+  <script src="js/story/Story1Controller.js?v=20261024_4"></script>
+  <script src="js/story/Story2Controller.js?v=20261024_4"></script>
+  <script src="js/story/Story3Controller.js?v=20261024_4"></script>
+  <script src="js/story/Story4Controller.js?v=20261024_4"></script>
   <script src="js/story/EpilogueController.js?v=20261024_3"></script>
 
   <script>
@@ -423,6 +440,37 @@
       window.epilogueController = epilogueCtrl;
       window.openEpilogueModal = () => epilogueCtrl.open();
 
+      // ------------------------------------------------------------------
+      // Loading screen guarding every story prologue.
+      // The four scenes are built at page load, so a story's models and
+      // textures can still be streaming when the player picks it.  The screen
+      // waits for the scene assets (THREE.LoadingManager) and for the montage
+      // media to buffer, then hands over to the story controller.
+      // ------------------------------------------------------------------
+      const loadingScreen = new LoadingScreen();
+      let introToken = 0;
+
+      const STORY_INTRO_META = {
+        1: { title: 'STORY I', sub: "The Watchmaker's Orrery · London, 1892" },
+        2: { title: 'STORY II', sub: 'The Whispering Wire · Svalbard, 1974' },
+        3: { title: 'STORY III', sub: "The Heretic's Palette · Venice, 1577" },
+        4: { title: 'STORY IV', sub: 'The Last Cradle · Deep Space, 2188' }
+      };
+
+      function beginStoryIntro(storyId, sceneMgr, ctrl, token) {
+        loadingScreen.show(STORY_INTRO_META[storyId] || {});
+        loadingScreen.waitFor(sceneMgr, ctrl).then(() => {
+          if (token !== introToken) return;   // another story took over meanwhile
+          loadingScreen.hide();
+          ctrl.startStory();
+        }).catch((err) => {
+          console.warn('Intro preload failed, starting the story anyway:', err);
+          if (token !== introToken) return;
+          loadingScreen.hide();
+          ctrl.startStory();
+        });
+      }
+
       // Menu toggle
       window.toggleJournalMenu = function(forceState) {
         const journal = document.getElementById('journal-drawer');
@@ -445,6 +493,7 @@
       // Function to switch between Story 1, Story 2, Story 3, and Story 4
       window.loadStory = function(storyId, playCutscene = true) {
         currentStoryId = storyId;
+        introToken++;   // cancel a prologue that is still waiting for its assets
 
         // Deactivate previous active story safely
         try {
@@ -559,8 +608,12 @@
         // Close menu
         window.toggleJournalMenu(false);
 
-        if (playCutscene) activeStoryCtrl.startStory();
-        else activeStoryCtrl.endCutscene();
+        if (playCutscene) {
+          beginStoryIntro(storyId, activeSceneMgr, activeStoryCtrl, introToken);
+        } else {
+          loadingScreen.hide();
+          activeStoryCtrl.endCutscene();
+        }
       };
 
       // Start story on click

@@ -11,7 +11,9 @@ class SceneManager3 {
     this.camera = null;
     this.renderer = null;
     this.clock = new THREE.Clock();
-    this.gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader() : null;
+    this.loadingManager = installAssetTracker(this);
+    this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+    this.gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader(this.loadingManager) : null;
 
     this.player = {
       height: 1.65,
@@ -155,7 +157,7 @@ class SceneManager3 {
   }
 
   buildCryptArchitecture() {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const stoneTex = texLoader.load('assets/textures/crypt_stone_wall.png');
     stoneTex.wrapS = THREE.RepeatWrapping;
     stoneTex.wrapT = THREE.RepeatWrapping;
@@ -262,7 +264,7 @@ class SceneManager3 {
   }
 
   buildFloodedCanalFloor() {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const flagstoneTex = texLoader.load('assets/textures/crypt_wet_flagstones.png');
     flagstoneTex.wrapS = THREE.RepeatWrapping;
     flagstoneTex.wrapT = THREE.RepeatWrapping;
@@ -298,7 +300,7 @@ class SceneManager3 {
   }
 
   buildFrescoWall() {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const frescoTex = texLoader.load('assets/textures/fresco_angel_comet.png?v=20261024_2');
     const stoneTex = texLoader.load('assets/textures/crypt_stone_wall.png');
 
@@ -374,7 +376,7 @@ class SceneManager3 {
     this.scene.add(this.deskMesh);
 
     // b) Brother Bernardo's Astrological Notes hitbox (this.parchMesh) + Parchment sheet
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const parchTex = texLoader.load('assets/textures/alchemical_parchment.png');
     const parchMat = new THREE.MeshStandardMaterial({ map: parchTex, roughness: 0.78 });
     const visibleParch = new THREE.Mesh(new THREE.PlaneGeometry(0.55, 0.40), parchMat);
@@ -405,7 +407,7 @@ class SceneManager3 {
     );
 
     // Recess surface with 4x4 mosaic elements texture (this.mosaicPanel for Story3Controller)
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const mosaicTex = texLoader.load('assets/textures/mosaic_elements.png');
     const mosaicMat = new THREE.MeshStandardMaterial({
       map: mosaicTex,
@@ -422,7 +424,7 @@ class SceneManager3 {
   }
 
   buildCellarStairsAndDoor() {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const stoneTex = texLoader.load('assets/textures/crypt_stone_wall.png');
     const stoneMat = new THREE.MeshStandardMaterial({ map: stoneTex, roughness: 0.85 });
 

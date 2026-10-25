@@ -23,8 +23,9 @@ class SceneManager2 {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this.clock = new THREE.Clock();
-    this.textureLoader = new THREE.TextureLoader();
-    this.gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader() : null;
+    this.loadingManager = installAssetTracker(this);
+    this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+    this.gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader(this.loadingManager) : null;
 
     this.fluorescentLights = [];
     this.beaconLight = null;

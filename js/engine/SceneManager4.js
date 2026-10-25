@@ -11,7 +11,9 @@ class SceneManager4 {
     this.scene = null;
     this.camera = null;
     this.clock = new THREE.Clock();
-    this.gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader() : null;
+    this.loadingManager = installAssetTracker(this);
+    this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+    this.gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader(this.loadingManager) : null;
 
     this.holoRingsGroup = null;
     this.starFieldPoints = null;
@@ -144,7 +146,7 @@ class SceneManager4 {
   }
 
   buildStarfieldAndNebulaCupola() {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const nebTex = texLoader.load('assets/textures/nebula_starfield.png');
     nebTex.wrapS = THREE.RepeatWrapping;
     nebTex.wrapT = THREE.ClampToEdgeWrapping;
@@ -182,7 +184,7 @@ class SceneManager4 {
   }
 
   buildObservationDeckArchitecture() {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
 
     const floorTex = texLoader.load('assets/textures/starship_floor_deck.png');
     floorTex.wrapS = THREE.RepeatWrapping;
@@ -345,7 +347,7 @@ class SceneManager4 {
     // PUZZLE 4.1 STATION: WEST BULKHEAD PLASMA CONDUIT JUNCTION
     // Loaded from Blender 5.2 Model: blender_s4_conduit_bulkhead.glb
     // -------------------------------------------------------------
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const patchTex = texLoader.load('assets/textures/patch_board_metal.png');
 
     this.loadModelAsset(
@@ -393,7 +395,7 @@ class SceneManager4 {
     // PUZZLE 4.2 STATION: EAST BULKHEAD OPTICAL SPECTROMETER CONSOLE
     // Loaded from Blender 5.2 Model: blender_s4_spectrometer_console.glb
     // -------------------------------------------------------------
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = this.textureLoader;
     const crtTex = texLoader.load('assets/textures/oscilloscope_crt.png');
 
     this.loadModelAsset(

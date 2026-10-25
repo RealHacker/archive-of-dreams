@@ -1,0 +1,1006 @@
+{
+  "generated_at": "2026-10-25T12:59:18+00:00",
+  "project_root": "E:\\3dgame\\dreams",
+  "target": "E:\\3dgame\\dreams\\dist",
+  "entry_point": "index.html",
+  "document_root": "game",
+  "included_assets": [
+    {
+      "path": "game/assets/audio/audio_story1_jonathan_cliffhanger.mp3",
+      "bytes": 142836,
+      "referenced_by": [
+        "game/js/story/Story1Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story1_jonathan_climax.mp3",
+      "bytes": 90996,
+      "referenced_by": [
+        "game/js/story/Story1Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story1_jonathan_opening.mp3",
+      "bytes": 839795,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story1Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story2_erik_distress.mp3",
+      "bytes": 167028,
+      "referenced_by": [
+        "game/js/puzzles/Puzzle2_NumberStation.js",
+        "game/js/story/Story2Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story2_erik_resolution.mp3",
+      "bytes": 155508,
+      "referenced_by": [
+        "game/js/story/Story2Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story2_maya_cliffhanger.mp3",
+      "bytes": 105972,
+      "referenced_by": [
+        "game/js/story/Story2Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story2_maya_opening.mp3",
+      "bytes": 839795,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story2Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story3_matteo_cliffhanger.mp3",
+      "bytes": 152052,
+      "referenced_by": [
+        "game/js/story/Story3Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story3_matteo_opening.mp3",
+      "bytes": 839795,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story3Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story3_matteo_resolution.mp3",
+      "bytes": 70260,
+      "referenced_by": [
+        "game/js/story/Story3Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story4_julian_final.mp3",
+      "bytes": 139956,
+      "referenced_by": [
+        "game/js/story/Story4Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story4_julian_nursery.mp3",
+      "bytes": 70836,
+      "referenced_by": [
+        "game/js/story/Story4Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story4_julian_opening.mp3",
+      "bytes": 840371,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story4Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/audio/audio_story4_julian_spectrometer.mp3",
+      "bytes": 68532,
+      "referenced_by": [
+        "game/js/story/Story4Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/char_clara_portrait.png",
+      "bytes": 1831031,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/char_julian_profile.png",
+      "bytes": 1527212,
+      "referenced_by": [
+        "game/js/story/Story4Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/char_maya_profile.png",
+      "bytes": 1883019,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/epilogue_sunlit_desk.png",
+      "bytes": 1559602,
+      "referenced_by": [
+        "game/js/story/EpilogueController.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/london_fog_window.png",
+      "bytes": 1588712,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/persian_rug_detailed.png",
+      "bytes": 2398779,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s1_slide1_estrangement.png",
+      "bytes": 1763563,
+      "referenced_by": [
+        "game/index.html",
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s1_slide2_fading_mind.png",
+      "bytes": 1824666,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s1_slide3_locked_desk.png",
+      "bytes": 1786178,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s1_slide4_celestial_orrery.png",
+      "bytes": 1974191,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s2_slide1_twin_bond.png",
+      "bytes": 1968223,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s2_slide2_arctic_isolation.png",
+      "bytes": 1838964,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s2_slide3_dead_relays.png",
+      "bytes": 1867713,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s2_slide4_emergency_transmitter.png",
+      "bytes": 1916670,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s3_slide1_comet_observation.png",
+      "bytes": 6600998,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s3_slide2_inquisition_raid.png",
+      "bytes": 1845849,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s3_slide3_crypt_fresco.png",
+      "bytes": 1834313,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s3_slide4_mosaic_and_vault.png",
+      "bytes": 2015191,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s4_slide1_earth_exodus.png",
+      "bytes": 1787613,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s4_slide2_micrometeoroid_strike.png",
+      "bytes": 1834971,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s4_slide3_sleeping_children.png",
+      "bytes": 1714731,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/s4_slide4_bridge_consoles.png",
+      "bytes": 1956827,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js"
+      ]
+    },
+    {
+      "path": "game/assets/images/scene2_keyframe.png",
+      "bytes": 1822077,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/blender_s1_fireplace_mantel.glb",
+      "bytes": 220436,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/blender_s3_cosmic_vault_alcove.glb",
+      "bytes": 583240,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/blender_s3_vaulted_pillar.glb",
+      "bytes": 158148,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/blender_s4_conduit_bulkhead.glb",
+      "bytes": 257564,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/blender_s4_spectrometer_console.glb",
+      "bytes": 219344,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/hero_prop_alchemical_scale.glb",
+      "bytes": 773572,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/hero_prop_cryo_pod.glb",
+      "bytes": 848712,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/hero_prop_shortwave_radio.glb",
+      "bytes": 821048,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s1_grandfather_clock.glb",
+      "bytes": 643680,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s1_music_box.glb",
+      "bytes": 931008,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s1_rolltop_desk.glb",
+      "bytes": 683652,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s1_wingback_armchair.glb",
+      "bytes": 564712,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s2_emergency_transmitter.glb",
+      "bytes": 937060,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s2_oscilloscope_station.glb",
+      "bytes": 639452,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s2_teletype_desk.glb",
+      "bytes": 647156,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s3_apothecary_table.glb",
+      "bytes": 778500,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s4_heritage_pedestal.glb",
+      "bytes": 716440,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/prop_s4_pilot_chair.glb",
+      "bytes": 678584,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/models/the_celestial_orrery.glb",
+      "bytes": 701160,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/alchemical_parchment.png",
+      "bytes": 2142867,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/bookshelf_books.png",
+      "bytes": 2941,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/bunker_concrete.png",
+      "bytes": 1019460,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/bunker_floor_metal.png",
+      "bytes": 5463,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/celestial_chart.png",
+      "bytes": 11021,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/clock_face.png",
+      "bytes": 8228,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/crypt_stone_wall.png",
+      "bytes": 2231056,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/crypt_wet_flagstones.png",
+      "bytes": 102042,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/damask_wallpaper.png",
+      "bytes": 70894,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/fire_embers.png",
+      "bytes": 79141,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/fresco_angel_comet.png",
+      "bytes": 2083336,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/mosaic_elements.png",
+      "bytes": 7983,
+      "referenced_by": [
+        "game/js/engine/SceneManager3.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/nebula_starfield.png",
+      "bytes": 168583,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/oscilloscope_crt.png",
+      "bytes": 7146,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js",
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/parquet_floor.png",
+      "bytes": 2116969,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/patch_board_metal.png",
+      "bytes": 10131,
+      "referenced_by": [
+        "game/js/engine/SceneManager2.js",
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/starry_sky.png",
+      "bytes": 71045,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/starship_floor_deck.png",
+      "bytes": 4212,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/starship_hull_panel.png",
+      "bytes": 4363,
+      "referenced_by": [
+        "game/js/engine/SceneManager4.js"
+      ]
+    },
+    {
+      "path": "game/assets/textures/wainscot_mahogany.png",
+      "bytes": 2027,
+      "referenced_by": [
+        "game/js/engine/SceneManager.js"
+      ]
+    },
+    {
+      "path": "game/assets/videos/cutscene_1a_london_mist.mp4",
+      "bytes": 12897703,
+      "referenced_by": [
+        "game/index.html",
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story1Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/videos/cutscene_2a_svalbard_blizzard.mp4",
+      "bytes": 17792093,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story2Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/videos/cutscene_3a_venice_canal.mp4",
+      "bytes": 22891755,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story3Controller.js"
+      ]
+    },
+    {
+      "path": "game/assets/videos/cutscene_4a_deep_space.mp4",
+      "bytes": 13265935,
+      "referenced_by": [
+        "game/js/story/IntroMontageData.js",
+        "game/js/story/Story4Controller.js"
+      ]
+    }
+  ],
+  "included_code": [],
+  "copied_assets": [],
+  "unused_assets": [
+    {
+      "path": "game/assets/audio/audio_prologue_narrator.mp3",
+      "bytes": 105972
+    },
+    {
+      "path": "game/assets/audio/intro_s1_part1.mp3",
+      "bytes": 243060
+    },
+    {
+      "path": "game/assets/audio/intro_s1_part2.mp3",
+      "bytes": 298356
+    },
+    {
+      "path": "game/assets/audio/intro_s1_part3.mp3",
+      "bytes": 270708
+    },
+    {
+      "path": "game/assets/audio/intro_s1_part4.mp3",
+      "bytes": 325428
+    },
+    {
+      "path": "game/assets/audio/intro_s2_part1.mp3",
+      "bytes": 309300
+    },
+    {
+      "path": "game/assets/audio/intro_s2_part2.mp3",
+      "bytes": 248244
+    },
+    {
+      "path": "game/assets/audio/intro_s2_part3.mp3",
+      "bytes": 275892
+    },
+    {
+      "path": "game/assets/audio/intro_s2_part4.mp3",
+      "bytes": 306420
+    },
+    {
+      "path": "game/assets/audio/intro_s3_part1.mp3",
+      "bytes": 312180
+    },
+    {
+      "path": "game/assets/audio/intro_s3_part2.mp3",
+      "bytes": 258612
+    },
+    {
+      "path": "game/assets/audio/intro_s3_part3.mp3",
+      "bytes": 274164
+    },
+    {
+      "path": "game/assets/audio/intro_s3_part4.mp3",
+      "bytes": 260916
+    },
+    {
+      "path": "game/assets/audio/intro_s4_part1.mp3",
+      "bytes": 207924
+    },
+    {
+      "path": "game/assets/audio/intro_s4_part2.mp3",
+      "bytes": 249972
+    },
+    {
+      "path": "game/assets/audio/intro_s4_part3.mp3",
+      "bytes": 255156
+    },
+    {
+      "path": "game/assets/audio/intro_s4_part4.mp3",
+      "bytes": 284532
+    },
+    {
+      "path": "game/assets/images/char_jonathan_profile.png",
+      "bytes": 1817355
+    },
+    {
+      "path": "game/assets/images/char_matteo_profile.png",
+      "bytes": 1711640
+    },
+    {
+      "path": "game/assets/images/fresco_angel_comet_hd.png",
+      "bytes": 2083336
+    },
+    {
+      "path": "game/assets/images/hero_prop_alchemical_scale.png",
+      "bytes": 1303387
+    },
+    {
+      "path": "game/assets/images/hero_prop_cryo_pod.png",
+      "bytes": 890332
+    },
+    {
+      "path": "game/assets/images/hero_prop_orrery_concept.png",
+      "bytes": 1400995
+    },
+    {
+      "path": "game/assets/images/hero_prop_shortwave_radio.png",
+      "bytes": 1820584
+    },
+    {
+      "path": "game/assets/images/prop_s1_grandfather_clock.png",
+      "bytes": 1144170
+    },
+    {
+      "path": "game/assets/images/prop_s1_music_box.png",
+      "bytes": 1352619
+    },
+    {
+      "path": "game/assets/images/prop_s1_rolltop_desk.png",
+      "bytes": 1560502
+    },
+    {
+      "path": "game/assets/images/prop_s1_wingback_armchair.png",
+      "bytes": 1090890
+    },
+    {
+      "path": "game/assets/images/prop_s2_emergency_transmitter.png",
+      "bytes": 1528557
+    },
+    {
+      "path": "game/assets/images/prop_s2_oscilloscope_station.png",
+      "bytes": 1438820
+    },
+    {
+      "path": "game/assets/images/prop_s2_teletype_desk.png",
+      "bytes": 1314407
+    },
+    {
+      "path": "game/assets/images/prop_s3_apothecary_table.png",
+      "bytes": 1303245
+    },
+    {
+      "path": "game/assets/images/prop_s4_heritage_pedestal.png",
+      "bytes": 1076159
+    },
+    {
+      "path": "game/assets/images/prop_s4_pilot_chair.png",
+      "bytes": 726082
+    },
+    {
+      "path": "game/assets/images/scene1_keyframe.png",
+      "bytes": 1653250
+    },
+    {
+      "path": "game/assets/images/scene3_cutscene_keyframe.png",
+      "bytes": 1734958
+    },
+    {
+      "path": "game/assets/images/scene3_keyframe.png",
+      "bytes": 1899876
+    },
+    {
+      "path": "game/assets/images/scene4_keyframe.png",
+      "bytes": 1532479
+    },
+    {
+      "path": "game/assets/models/_audit_report.json",
+      "bytes": 41241
+    },
+    {
+      "path": "game/assets/models/_blockout_report.json",
+      "bytes": 8566
+    },
+    {
+      "path": "game/assets/models/_contract_report.json",
+      "bytes": 3637
+    },
+    {
+      "path": "game/assets/models/_dimension_report.json",
+      "bytes": 8469
+    },
+    {
+      "path": "game/assets/models/_refine_report.json",
+      "bytes": 41558
+    },
+    {
+      "path": "game/assets/models/_topology_report.json",
+      "bytes": 36004
+    },
+    {
+      "path": "game/assets/models/blender_s1_music_table.glb",
+      "bytes": 337528
+    },
+    {
+      "path": "game/assets/models/blender_s2_transmitter_rack.glb",
+      "bytes": 457368
+    },
+    {
+      "path": "game/assets/models/hero_prop_alchemical_scale.png",
+      "bytes": 212323
+    },
+    {
+      "path": "game/assets/models/hero_prop_cryo_pod.png",
+      "bytes": 280205
+    },
+    {
+      "path": "game/assets/models/hero_prop_shortwave_radio.png",
+      "bytes": 364837
+    },
+    {
+      "path": "game/assets/models/prop_s1_grandfather_clock.png",
+      "bytes": 222537
+    },
+    {
+      "path": "game/assets/models/prop_s1_music_box.png",
+      "bytes": 356217
+    },
+    {
+      "path": "game/assets/models/prop_s1_rolltop_desk.png",
+      "bytes": 301466
+    },
+    {
+      "path": "game/assets/models/prop_s1_wingback_armchair.png",
+      "bytes": 280654
+    },
+    {
+      "path": "game/assets/models/prop_s2_emergency_transmitter.png",
+      "bytes": 348988
+    },
+    {
+      "path": "game/assets/models/prop_s2_oscilloscope_station.png",
+      "bytes": 192779
+    },
+    {
+      "path": "game/assets/models/prop_s2_teletype_desk.png",
+      "bytes": 297779
+    },
+    {
+      "path": "game/assets/models/prop_s3_apothecary_table.png",
+      "bytes": 204638
+    },
+    {
+      "path": "game/assets/models/prop_s4_heritage_pedestal.png",
+      "bytes": 328941
+    },
+    {
+      "path": "game/assets/models/prop_s4_pilot_chair.png",
+      "bytes": 268055
+    },
+    {
+      "path": "game/assets/models/scene1_study_assembled.glb",
+      "bytes": 838756
+    },
+    {
+      "path": "game/assets/models/scene1_study_blockout.glb",
+      "bytes": 15756
+    },
+    {
+      "path": "game/assets/models/the_celestial_orrery_raw.glb",
+      "bytes": 10660840
+    },
+    {
+      "path": "game/assets/models/the_celestial_orrery_raw.png",
+      "bytes": 280663
+    },
+    {
+      "path": "game/assets/textures/persian_rug.png",
+      "bytes": 26324
+    }
+  ],
+  "broken_references": [],
+  "external_dependencies": [
+    "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+    "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
+  ],
+  "stale_files_in_target": [
+    "README.md",
+    ".git/COMMIT_EDITMSG",
+    ".git/HEAD",
+    ".git/config",
+    ".git/description",
+    ".git/index",
+    ".git/hooks/applypatch-msg.sample",
+    ".git/hooks/commit-msg.sample",
+    ".git/hooks/fsmonitor-watchman.sample",
+    ".git/hooks/post-update.sample",
+    ".git/hooks/pre-applypatch.sample",
+    ".git/hooks/pre-commit.sample",
+    ".git/hooks/pre-merge-commit.sample",
+    ".git/hooks/pre-push.sample",
+    ".git/hooks/pre-rebase.sample",
+    ".git/hooks/pre-receive.sample",
+    ".git/hooks/prepare-commit-msg.sample",
+    ".git/hooks/push-to-checkout.sample",
+    ".git/hooks/sendemail-validate.sample",
+    ".git/hooks/update.sample",
+    ".git/info/exclude",
+    ".git/logs/HEAD",
+    ".git/logs/refs/heads/master",
+    ".git/logs/refs/remotes/origin/master",
+    ".git/objects/05/355b2980c24de142a2458d39c27b35da5562ee",
+    ".git/objects/06/01e03340a212e9f7558a30fbcd564385a7b631",
+    ".git/objects/07/26ea107777f2576122091bdf45df3c88d4899c",
+    ".git/objects/0a/ba81f79729fa8fcdcd9d7e1b0d9f329b82cb64",
+    ".git/objects/0b/8440b1a8375d9de0e20acc318e7be92e0baf90",
+    ".git/objects/10/86544edfb3054f78b89d432d9c7b1c2b5549c2",
+    ".git/objects/13/11a56c22e34b027d240f616f87d87ecfe7a62b",
+    ".git/objects/15/03fee85808c505c8f40bad38e028afc5d67fd5",
+    ".git/objects/15/74f09025a2dc79e76fe3cf335a659a74592af2",
+    ".git/objects/18/c03926892d39895da15c7492c4149391988688",
+    ".git/objects/19/52705b4af5d57c5884d4662f362008268ca975",
+    ".git/objects/1a/7cbade76a105cc04c0f3174024d3aeadf666aa",
+    ".git/objects/1c/2c54a44bf62b602c0e67b5ab10f01c93336442",
+    ".git/objects/1e/da68966bdd04295cb60d6c61283fb75357eb22",
+    ".git/objects/27/5d1c04a4c761cf2a9df163a1958373c2340c42",
+    ".git/objects/27/82d2a8bca6ae27f3b559b0ff989d35793fca53",
+    ".git/objects/27/ee48cefda77b739d048b8ea46f7ff4ea081b6f",
+    ".git/objects/28/da5d0bdc72adfcbb5e832be09540428289dc0b",
+    ".git/objects/29/1f974e189efef1d4b1f65cf6e0a50efe6a0055",
+    ".git/objects/2c/0a16e20d6f31abd131df843e183be844787dac",
+    ".git/objects/31/3d1bf78a976a9d5fbb7dc7d35dd0fececa319c",
+    ".git/objects/33/84db32b2c2875c4baaa50ddb2a97546dbbddeb",
+    ".git/objects/34/a8e173dfae8c33c5561b622437f6fbbe0390f7",
+    ".git/objects/37/b75439e35eb519455a6ed726817b5753f86105",
+    ".git/objects/37/ec0fe2830b4acc1669346307ef1cb304181e62",
+    ".git/objects/38/a65b3ff39a4c6a47e130d13d8f3b2a8c4f6938",
+    ".git/objects/3c/82d04d195f1a51c4829c6b8e72896c34633e83",
+    ".git/objects/3f/664d9c474fc662cee4e83a60a0cae27cb9568c",
+    ".git/objects/41/0016b190990527d2584e843a1adeabf502c89e",
+    ".git/objects/44/8aeccc8d5601f19692eec609f13a9c151a28f9",
+    ".git/objects/46/bfcd29248f12c3ff153e9acf8ad708b2a04226",
+    ".git/objects/49/d291d918d831f217921d540e80c32d51ed070c",
+    ".git/objects/4d/bbceb32ad67fdb7990cb7db0898b74ede80c2d",
+    ".git/objects/4e/02225d5c647add97821c8db44aef36f6549a57",
+    ".git/objects/4e/f24bbad6d4a413ef115e5b7d614e77d4751e48",
+    ".git/objects/51/3b89e36560be363c1d4a6d65298ab0d55d0ee3",
+    ".git/objects/53/8c7340589afe49117c9d586db8fafdf650dccf",
+    ".git/objects/55/d340d2090548ca84e69487f5432d265e18a0eb",
+    ".git/objects/5a/f98ed26294b464b13c9ba5eedd7fdd1ee72a73",
+    ".git/objects/5b/3dd58649294b5750b76ef194a21977766b75e4",
+    ".git/objects/5c/6eef48bf46a081ddad8f287f5b223700a257f5",
+    ".git/objects/5d/2dfebb306d76978cde9f01a0f3e0eb4d2325f7",
+    ".git/objects/5f/766ce690441a7cf2a64c6bbc843fe49359b1c2",
+    ".git/objects/62/a41731042cede0afc5917ddacb1aeeb02259f4",
+    ".git/objects/63/4d4ad1d7cf49bde8667dbee9aa6365f9b27060",
+    ".git/objects/69/3b9f1d64841d64662d3c12b8ebb11657240bf3",
+    ".git/objects/69/846e2e8374ab75b615256b6d01b33b708ba9dc",
+    ".git/objects/6a/1b618dc79ca2620ce5d072fe8e72e15c4d90c4",
+    ".git/objects/6c/855b707b73a9b4420912345eea369ef446a47a",
+    ".git/objects/6d/478ea7f2c824899d8f98dae23a5bdd5cbdfa4c",
+    ".git/objects/6e/a9fd239ea3db6cb7b16c2e7a50ad89e68b76df",
+    ".git/objects/77/175547289d33c8b4a0fdc438bc4824b872a333",
+    ".git/objects/78/12882dc3a9d02f09633befd0146c87f4edb982",
+    ".git/objects/78/36c73d1934bfa9da0d5cc4e2473fb89d5f69b1",
+    ".git/objects/7b/68a1a4d7be035858f2c43dc17f4bcf1109fa04",
+    ".git/objects/7e/bb563ff34eddecf67ff6010eb90198dea8067c",
+    ".git/objects/80/2cd269f5843012210af8b7bcea2dd58e3a73ec",
+    ".git/objects/82/6da8ac6677973eb188cab581bec281b64c33c8",
+    ".git/objects/84/f755da174d1d2329d9e7161b6c175340c623c3",
+    ".git/objects/86/938a530a5bf01bd08c85a80f132f22e08ebf5e",
+    ".git/objects/86/acb04f7ad755381906f290384084f416ec5444",
+    ".git/objects/87/8186a0be1ff0939354970e30857cff0fdd69f0",
+    ".git/objects/88/7e6ea43c3357b8bbd61bedaea43385915c02e8",
+    ".git/objects/89/147755476d04565644d9dfd8bbb0361e9015b3",
+    ".git/objects/89/180359445b174e311c75dd16e6166b72d51f9f",
+    ".git/objects/8a/0433106343ec002e86a646524f4a408f32560e",
+    ".git/objects/8a/5f1185ab9aaad92d9ca30582e9fcd2251deb38",
+    ".git/objects/8b/30c4c4443c9d869cd3fedf773e834691fb6552",
+    ".git/objects/8e/453d7ae64e3fae5ac182d7d53a1d7e178c63e1",
+    ".git/objects/8e/e052f432fc22b05f6701fe40ee8203faea0d1f",
+    ".git/objects/90/2cc2a7359b5140e9c669f04e55bd443c320ae1",
+    ".git/objects/90/b8324d3037bc08fe08697f498f0a62b2b39308",
+    ".git/objects/98/d9d9e34c73fd26377002cd91a7fc8ddbe2558b",
+    ".git/objects/9a/fc3b3641167c3ce3de3241dbe0d42c1b573c37",
+    ".git/objects/9b/3c5fbeae2a87e73319217d2ffbb2b8ebad41ba",
+    ".git/objects/9b/d0eaa4a628661dd2e9f8514d650d6407f01c47",
+    ".git/objects/9d/7af23343cb6838d7c896339121769040299291",
+    ".git/objects/a7/06f5734588ccf7abde5492c7f7a474733cf535",
+    ".git/objects/a7/fe56e825358c7ec51a2207b84fb52fc535363a",
+    ".git/objects/a8/792aa2f66554a31198b1d170afb22766868d8d",
+    ".git/objects/a9/10e3d5eb8c80a5cf558b3e48b467e65f77f148",
+    ".git/objects/ab/62a20388c7b096ff62fd353ce5000c1625b2d1",
+    ".git/objects/ae/c076d686ee6ba1b95e042554cba62c62fcaf0a",
+    ".git/objects/b3/1d0d46271ff87297b79362350e0115d166b46e",
+    ".git/objects/b4/ecc960c28db6fc7eb9668850f756be0c9c80d5",
+    ".git/objects/b6/1d4ddb83da51c4ec9ae2a1c6216c72cd34faa9",
+    ".git/objects/b7/72ce698b522c85eef6fc9e699fa1cd7f8a7a3f",
+    ".git/objects/b7/fdd4440a32096b43499a21665290beedeb47f3",
+    ".git/objects/b8/1977a84ac4095f4f6c4419c114d8a38bbffb7f",
+    ".git/objects/bb/b2324a425ff2baf32e1412ef5df00872e9d6c1",
+    ".git/objects/bc/db511c3614f6b9913666f9e7d442d14f9b9ebd",
+    ".git/objects/bd/4c39ffad2439bfbf09d2615ead0bf713659d5e",
+    ".git/objects/bf/7a1654d20511d5d91f1bfecf753910cc89d065",
+    ".git/objects/c0/506e33ef9de9728b22ae30231eb071bfe78ca4",
+    ".git/objects/c4/ded7aed793734a974c2b9b707a75ed6eb91f34",
+    ".git/objects/c5/3992d14ce44bb46032b8cea9f9c6105f9e1476",
+    ".git/objects/c5/92b1417b0d1582adfd6d53314cc8f8af5cd1bd",
+    ".git/objects/c8/5d58580ba85850d760cd7c6ada977b0964bb8d",
+    ".git/objects/ca/1f4d283e85e4b4dcde7deef61ce35c1cc0813d",
+    ".git/objects/cc/344d2b1ead51a25e71b897be90eef3e045f02c",
+    ".git/objects/ce/dec6d2b2273133c20bb4d6453aac1fcfb3809c",
+    ".git/objects/cf/57a35174d97dab3c2fd767bdb6fce960acc926",
+    ".git/objects/d2/75a0d0342b44c2f40914ec6c4a3b410e479de7",
+    ".git/objects/d2/f9fae15cbd699de327a6e3c9323729265824b0",
+    ".git/objects/d7/22abb8c3ed4783cf0b7ec954e19c9b4cfc8a8a",
+    ".git/objects/d7/37f06c2a3bf77e3df42441e6f2f195ed5d302f",
+    ".git/objects/d7/99bcd61c2394c37739eecc636d472993f08c1a",
+    ".git/objects/d8/d3e47a1e4abfd7f49428770f2d6f24cb294fb6",
+    ".git/objects/dd/932986cebca58259e9bb5689c8be1e5379dd3f",
+    ".git/objects/df/3ddac2246634cdcb422c4856b6e91e1afd84c9",
+    ".git/objects/e4/46027f700ee4a905020776e29a4fda1874b107",
+    ".git/objects/e5/bf71a2e3a04600640ed894693a29473314ae6b",
+    ".git/objects/e6/4ca0d84291df7b987a0a0c812a0129056845ec",
+    ".git/objects/e7/3d5060be7c51937b1718409f53782981aedaea",
+    ".git/objects/e8/ac78c5a77ea401a5863463dbd34360b0596b44",
+    ".git/objects/ea/241c7c7a79153531d2931c7e0c936ac3763022",
+    ".git/objects/ea/6f6a8c664542cefaf23abd2ba0d85430095a78",
+    ".git/objects/eb/23f0ae99cc759cc182e2769c08db2fff7de90a",
+    ".git/objects/ed/b6de5ff4c86581b8208d2be31595e590355ae5",
+    ".git/objects/f1/68acbbaeae9e5193be979ac5d81ed62294f4ec",
+    ".git/objects/f2/ad6a9bb26465bf7da790c61eda59d8a09fd49d",
+    ".git/objects/f9/2b666ee2c5935253a3b28ce8b748efbfc130be",
+    ".git/objects/fe/cc82429790e12fc948c3b8760cb14dfe96c291",
+    ".git/refs/heads/master",
+    ".git/refs/remotes/origin/master"
+  ],
+  "totals": {
+    "assets": 80,
+    "assets_bytes": 140464687,
+    "unused_assets": 64,
+    "unused_bytes": 51286608,
+    "files_written": 0
+  }
+}

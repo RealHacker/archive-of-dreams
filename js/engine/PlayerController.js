@@ -46,6 +46,7 @@ class PlayerController {
   isUiBlocking() {
     const modalIds = [
       'start-overlay',
+      'loading-screen',
       'cutscene-modal',
       'puzzle-modal',
       'document-modal',

@@ -42,6 +42,7 @@ Prologue
   - View the **Nested Dream Architecture** progress tracker.
   - Trigger **Part II Resolution** simulation toggles for testing cross-era clues at any time.
 - **4-Chapter Dream-Montage Cutscenes**: Each story opens with a synchronized `< 60s` (`~52.4s`) 4-chapter narrated Dream-Montage video featuring clickable chapter progress bars (`Slide 1 / 4` – `Slide 4 / 4`), environmental shaders, double-exposure memory ghosts, and timed subtitles.
+- **Pre-Cutscene Loading Screen**: Before every story intro a loading screen appears and waits until (a) the target scene's models and textures have finished streaming, (b) the montage video is buffered and (c) the narration track — which drives the montage clock — is ready. The progress bar blends the three sources (68 % scene assets / 22 % video / 10 % narration). Every wait has a timeout, so the intro always starts. On a slow connection this is what keeps the cutscene from playing over a half-built scene.
 
 ---
 
@@ -55,8 +56,10 @@ dreams/
 │   │   └── game.css               # UI styling, puzzle interfaces, cutscene & epilogue modals
 │   ├── js/
 │       ├── engine/
+│       │   ├── AssetTracker.js   # Per-scene THREE.LoadingManager wiring (scene load progress)
 │       │   ├── AudioManager.js    # Voiceover playback, WebAudio procedural SFX & montage sync
 │       │   ├── InteractionManager.js # Raycasting, proximity floating thoughts & reticle prompts
+│       │   ├── LoadingScreen.js  # Pre-intro loading screen: waits for assets + montage media
 │       │   ├── PlayerController.js   # First-person WASD movement, collision bounds & pointer lock
 │       │   ├── SceneManager.js    # Story 1 (London, 1892) 3D scene & GLB asset loader
 │       │   ├── SceneManager2.js   # Story 2 (Svalbard, 1974) 3D scene & GLB asset loader
