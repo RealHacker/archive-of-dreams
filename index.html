@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Archive of Dreams</title>
+  <link rel="stylesheet" href="css/game.css?v=20261024_3" />
+  <!-- Three.js & GLTF Loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+
+  <!-- Start / Enter Dream Overlay & Level Selection Portal -->
+  <div id="start-overlay">
+    <div class="start-content">
+      <div class="start-header">
+        <h1 class="game-main-title">THE ARCHIVE OF DREAMS</h1>
+        <p class="game-tagline">"Live their lives. Unbind their regrets."</p>
+      </div>
+
+      <div class="dream-select-title">SELECT A DREAM TO ENTER:</div>
+
+      <div class="dream-cards-grid">
+        <!-- Story 1 Card -->
+        <div class="dream-card" onclick="window.startGame(1)">
+          <div class="dream-card-era">LONDON &bull; 1892</div>
+          <div class="dream-card-title">Story 1: The Watchmaker's Orrery</div>
+          <p class="dream-card-desc">
+            In a quiet Victorian workshop, an aging clockmaker struggles to unlock his celestial orrery and reconcile with his late wife Clara.
+          </p>
+          <button class="dream-enter-btn">[ ENTER DREAM ]</button>
+        </div>
+
+        <!-- Story 2 Card -->
+        <div class="dream-card" onclick="window.startGame(2)">
+          <div class="dream-card-era">SVALBARD &bull; 1974</div>
+          <div class="dream-card-title">Story 2: The Whispering Wire</div>
+          <p class="dream-card-desc">
+            Trapped in an Arctic listening post amidst a sub-zero blizzard, acoustic specialist Dr. Maya Lind intercepts a distress call from her lost twin brother.
+          </p>
+          <button class="dream-enter-btn" style="background:#0f766e; border-color:#14b8a6;">[ ENTER DREAM ]</button>
+        </div>
+
+        <!-- Story 3 Card -->
+        <div class="dream-card" onclick="window.startGame(3)">
+          <div class="dream-card-era">VENICE &bull; 1577</div>
+          <div class="dream-card-title">Story 3: The Heretic's Palette</div>
+          <p class="dream-card-desc">
+            Beneath San Lazzaro during the Great Plague, Fra Matteo must balance sacred pigments and seal comet observations before the Inquisition breaches the crypt.
+          </p>
+          <button class="dream-enter-btn" style="background:#854d0e; border-color:#eab308;">[ ENTER DREAM ]</button>
+        </div>
+
+        <!-- Story 4 Card -->
+        <div class="dream-card" onclick="window.startGame(4)">
+          <div class="dream-card-era">DEEP SPACE &bull; 2188</div>
+          <div class="dream-card-title">Story 4: The Last Cradle</div>
+          <p class="dream-card-desc">
+            Aboard the sleeper ark <em>SS Peregrine</em>, Steward Julian reroutes failing life support to 500 cryo-pods and unlocks the Keystone Constant (&Phi; = 1.618).
+          </p>
+          <button class="dream-enter-btn" style="background:#3b0764; border-color:#a855f7;">[ ENTER DREAM ]</button>
+        </div>
+      </div>
+
+      <div style="margin-top:0.2rem;">
+        <button class="btn-brass" style="background:linear-gradient(135deg,#92400e 0%,#d97706 100%); border-color:#fef08a; color:#fff; font-size:0.82rem; padding:0.45rem 1.4rem;" onclick="document.getElementById('start-overlay').style.display='none'; if(window.openEpilogueModal) window.openEpilogueModal();">
+          ☀ Epilogue: The Dreamer's Awakening (Present Day)
+        </button>
+      </div>
+
+      <div class="start-instructions">
+        <span>Controls: <strong>WASD</strong> to Walk &bull; <strong>Mouse</strong> to Look &bull; <strong>[E]</strong> to Inspect &bull; <strong>[TAB]</strong> or <strong>[ESC]</strong> to Open Menu &amp; Free Mouse</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top HUD Bar -->
+  <div id="top-hud-bar">
+    <div id="hud-level-badge">✦ Story 1: The Watchmaker's Orrery (London, 1892)</div>
+    <div class="hud-center-hints">
+      <span class="hud-hint-key">[WASD]</span> Walk
+      <span class="hud-hint-dot">&bull;</span>
+      <span class="hud-hint-key">[E]</span> Inspect
+      <span class="hud-hint-dot">&bull;</span>
+      <span class="hud-hint-key">[TAB]</span> Menu / Free Mouse
+    </div>
+    <button id="btn-toggle-menu" class="btn-top-menu" onclick="window.toggleJournalMenu()">
+      <span class="menu-icon">☰</span> DREAM ARCHIVE / MENU [TAB]
+    </button>
+  </div>
+
+  <!-- 3D Viewport Canvas -->
+  <canvas id="canvas3d"></canvas>
+
+  <!-- UI Overlay Layer -->
+  <div id="ui-layer">
+    <!-- Center Reticle / Crosshair -->
+    <div id="crosshair"></div>
+
+    <!-- Interaction Prompt -->
+    <div id="interaction-prompt">
+      <span class="key-badge">E</span>
+      <span id="prompt-text">Inspect</span>
+    </div>
+
+    <!-- Notification Banner -->
+    <div id="notification-banner"></div>
+
+    <!-- Journal / Inventory Drawer -->
+    <div id="journal-drawer">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:0.4rem;">
+        <div class="journal-header" style="border-bottom:none; padding-bottom:0;">DREAM ARCHIVE &amp; JOURNAL</div>
+        <button id="btn-close-journal" class="btn-brass" style="font-size:0.7rem; padding:0.2rem 0.5rem;" onclick="window.toggleJournalMenu(false)">✕ Close [TAB]</button>
+      </div>
+
+      <!-- Quick Resume Button -->
+      <button id="btn-resume-dream" class="btn-brass" style="width:100%; margin-top:0.3rem; background:#1e3a8a; border-color:#3b82f6; font-size:0.8rem; padding:0.45rem;" onclick="window.toggleJournalMenu(false)">
+        ▶ Resume Exploration
+      </button>
+
+      <!-- Story Switcher & Level Select -->
+      <div style="margin-top:0.6rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:0.6rem;">
+        <div style="font-size:0.75rem; color:#f59e0b; font-family:'Cinzel', serif; margin-bottom:0.4rem; letter-spacing:0.05rem;">SWITCH DREAM / LEVEL:</div>
+        <button id="btn-switch-story1" class="btn-brass" style="font-size:0.75rem; padding:0.4rem 0.5rem; width:100%; margin-bottom:0.35rem; text-align:left;">
+          Story 1: London (1892) &bull; Horologist Study
+        </button>
+        <button id="btn-switch-story2" class="btn-brass" style="font-size:0.75rem; padding:0.4rem 0.5rem; width:100%; background:#0f766e; border-color:#14b8a6; margin-bottom:0.35rem; text-align:left;">
+          Story 2: Svalbard (1974) &bull; Arctic Listening Post
+        </button>
+        <button id="btn-switch-story3" class="btn-brass" style="font-size:0.75rem; padding:0.4rem 0.5rem; width:100%; background:#854d0e; border-color:#eab308; margin-bottom:0.35rem; text-align:left;">
+          Story 3: Venice (1577) &bull; Plague Crypt Cellar
+        </button>
+        <button id="btn-switch-story4" class="btn-brass" style="font-size:0.75rem; padding:0.4rem 0.5rem; width:100%; background:#3b0764; border-color:#a855f7; margin-bottom:0.35rem; text-align:left;">
+          Story 4: Deep Space (2188) &bull; SS Peregrine Ark
+        </button>
+        <button id="btn-open-epilogue" class="btn-brass" style="font-size:0.75rem; padding:0.4rem 0.5rem; width:100%; background:#b45309; border-color:#fef08a; text-align:left;">
+          ☀ Epilogue: Present Day &bull; The Awakening
+        </button>
+      </div>
+
+      <!-- Memories & Keepsakes -->
+      <div style="margin-top:0.5rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:0.4rem;">
+        <div style="font-size:0.7rem; color:#94a3b8; font-family:'Cinzel', serif; margin-bottom:0.25rem;">MEMORIES &amp; KEEPSAKES:</div>
+        <div id="inventory-list" class="inventory-items">
+          <div class="inv-item"><span class="inv-icon">◆</span> <span>Cracked Pocket Watch</span></div>
+        </div>
+      </div>
+
+      <!-- Part 2 Coordinate Unlock Tool for Testing -->
+      <div id="part2-toggle-container" style="display:none; margin-top:0.5rem; border-top:1px dashed rgba(245,158,11,0.4); padding-top:0.5rem;">
+        <button id="btn-unlock-part2" class="btn-brass" style="font-size:0.75rem; padding:0.3rem 0.6rem; width:100%;">
+          Simulate Story 2 Return (Apply 1577 Comet Coords)
+        </button>
+      </div>
+
+      <div id="part2-story2-toggle-container" style="display:none; margin-top:0.5rem; border-top:1px dashed rgba(20,184,166,0.4); padding-top:0.5rem;">
+        <button id="btn-unlock-story2-part2" class="btn-brass" style="font-size:0.75rem; padding:0.3rem 0.6rem; width:100%; background:#0f766e; border-color:#14b8a6;">
+          Simulate Story 3 Return (Apply Choral Notes D-F-A-C)
+        </button>
+      </div>
+
+      <div id="part2-story3-toggle-container" style="display:none; margin-top:0.5rem; border-top:1px dashed rgba(234,179,8,0.4); padding-top:0.5rem;">
+        <button id="btn-unlock-story3-part2" class="btn-brass" style="font-size:0.75rem; padding:0.3rem 0.6rem; width:100%; background:#854d0e; border-color:#eab308;">
+          Simulate Story 4 Return (Apply Cosmic Ratio Φ = 1.618)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Subtitle Bar (renders above 3D scene and Cutscene Modal) -->
+  <div id="subtitle-bar">
+    <div id="subtitle-speaker">Jonathan Finch</div>
+    <div id="subtitle-text"></div>
+  </div>
+
+  <!-- Cutscene Fullscreen Modal -->
+  <div id="cutscene-modal">
+    <div id="cutscene-montage-hud">
+      <div class="montage-hud-header">
+        <span id="montage-chapter-title">I. Prologue</span>
+        <span id="montage-time-badge">Slide 1 / 4</span>
+      </div>
+      <div id="montage-progress-bars">
+        <div class="montage-seg" data-idx="0" title="Chapter I"><div class="montage-seg-fill" id="montage-fill-0"></div></div>
+        <div class="montage-seg" data-idx="1" title="Chapter II"><div class="montage-seg-fill" id="montage-fill-1"></div></div>
+        <div class="montage-seg" data-idx="2" title="Chapter III"><div class="montage-seg-fill" id="montage-fill-2"></div></div>
+        <div class="montage-seg" data-idx="3" title="Chapter IV"><div class="montage-seg-fill" id="montage-fill-3"></div></div>
+      </div>
+    </div>
+    <div id="cutscene-stage-frame">
+      <img id="montage-slide-backdrop" alt="Dream Montage Slide" src="assets/images/s1_slide1_estrangement.png" />
+      <video id="cutscene-video" muted preload="auto" playsinline>
+        <source src="assets/videos/cutscene_1a_london_mist.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+    <div id="cutscene-dream-overlay"></div>
+    <button id="skip-cutscene" class="skip-btn">Skip Prologue [SPACE]</button>
+  </div>
+
+  <!-- 2D Puzzle Modal Overlay -->
+  <div id="puzzle-modal">
+    <div class="puzzle-frame">
+      <div class="puzzle-header">
+        <span id="puzzle-title-text" class="puzzle-title">Mechanical Puzzle</span>
+        <button id="puzzle-close" class="puzzle-close-btn">&times;</button>
+      </div>
+
+      <div class="puzzle-body">
+        <!-- 1. Escapement Gear Train Puzzle -->
+        <div id="puzzle-section-escapement" style="display:none; flex-direction:column; align-items:center;">
+          <p class="puzzle-instruction">
+            The roll-top desk lock is jammed. Drag loose balance gears onto pegs to drive the release latch counter-clockwise at 30 RPM.
+          </p>
+          <canvas id="gear-canvas"></canvas>
+          <div class="puzzle-controls">
+            <button id="btn-test-lever" class="btn-brass">Pull Winding Lever</button>
+            <button id="btn-reset-gears" class="btn-brass" style="background:#374151; border-color:#4b5563;">Reset Gears</button>
+          </div>
+        </div>
+
+        <!-- 2. Lockbox of Memories (5-Letter Cylinder) -->
+        <div id="puzzle-section-lockbox" style="display:none; flex-direction:column; align-items:center;">
+          <p class="puzzle-instruction">
+            Enter the 5-letter name that unlocks the memory cylinder. (Clues: Clara's music box and the St. Jude's pawn ticket).
+          </p>
+          <div id="lockbox-dials" class="lockbox-container"></div>
+          <div class="puzzle-controls">
+            <button id="btn-unlock-cylinder" class="btn-brass">Open Cylinder</button>
+          </div>
+        </div>
+
+        <!-- 3. The Celestial Orrery Alignment -->
+        <div id="puzzle-section-orrery" style="display:none; flex-direction:column; align-items:center; width:100%;">
+          <p class="puzzle-instruction">
+            Align the three bronze rings to the celestial trajectory of the Great Comet of 1577 (Month, Day, and Scorpio Meridian).
+          </p>
+          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; width:100%; max-width:680px; margin-bottom:1.5rem;">
+            <div>
+              <label style="font-family:'Cinzel', serif; font-size:0.75rem; color:#fbbf24; display:block; margin-bottom:0.25rem;">MONTH</label>
+              <select id="orrery-month" style="width:100%; padding:0.5rem; background:#1e2430; color:#fff; border:1px solid #b45309; border-radius:4px; font-family:'Cinzel', serif;"></select>
+            </div>
+            <div>
+              <label style="font-family:'Cinzel', serif; font-size:0.75rem; color:#fbbf24; display:block; margin-bottom:0.25rem;">DAY</label>
+              <input id="orrery-day" type="number" min="1" max="31" value="1" style="width:100%; padding:0.5rem; background:#1e2430; color:#fff; border:1px solid #b45309; border-radius:4px; font-family:'Cinzel', serif;" />
+            </div>
+            <div>
+              <label style="font-family:'Cinzel', serif; font-size:0.75rem; color:#fbbf24; display:block; margin-bottom:0.25rem;">ZODIAC SIGN</label>
+              <select id="orrery-zodiac" style="width:100%; padding:0.5rem; background:#1e2430; color:#fff; border:1px solid #b45309; border-radius:4px; font-family:'Cinzel', serif;"></select>
+            </div>
+            <div>
+              <label style="font-family:'Cinzel', serif; font-size:0.75rem; color:#fbbf24; display:block; margin-bottom:0.25rem;">DEGREES (&deg;)</label>
+              <input id="orrery-degree" type="number" min="0" max="29" value="0" style="width:100%; padding:0.5rem; background:#1e2430; color:#fff; border:1px solid #b45309; border-radius:4px; font-family:'Cinzel', serif;" />
+            </div>
+          </div>
+
+          <!-- Visual Ring Representation -->
+          <div style="position:relative; width:220px; height:220px; margin-bottom:1.2rem; display:flex; justify-content:center; align-items:center;">
+            <div id="visual-ring-month" style="position:absolute; width:200px; height:200px; border:3px solid #d97706; border-radius:50%; border-top-color:#fef08a; transition:transform 0.3s;"></div>
+            <div id="visual-ring-day" style="position:absolute; width:150px; height:150px; border:2px dashed #b45309; border-radius:50%; border-left-color:#38bdf8; transition:transform 0.3s;"></div>
+            <div id="visual-ring-zodiac" style="position:absolute; width:100px; height:100px; border:2px solid #78350f; border-radius:50%; border-bottom-color:#fbbf24; transition:transform 0.3s;"></div>
+            <div style="width:24px; height:24px; background:#fbbf24; border-radius:50%; box-shadow:0 0 15px #fbbf24;"></div>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:0.75rem; justify-content:center;">
+            <button id="btn-crank-orrery" class="btn-brass" style="font-size:1rem; padding:0.8rem 2.2rem;">
+              Turn Astrolabe Crank
+            </button>
+            <button id="btn-orrery-bridge-story2" class="btn-brass" style="background:#0f766e; border-color:#14b8a6; font-size:0.92rem; padding:0.8rem 1.5rem;" onclick="if(window.storyController1) window.storyController1.closeCurrentPuzzle(); if(window.loadStory) window.loadStory(2, true);">
+              ✦ Enter Story 2: Svalbard (1974) — Find Missing Comet Page
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. Story 2: Patch-Board Frequency Grid -->
+        <div id="puzzle-section-patchboard" style="display:none; flex-direction:column; align-items:center; width:100%;">
+          <p class="puzzle-instruction">
+            Re-route 3 jumper cables so Total Resistance equals exactly <strong>135 Ω</strong>. No two lines may share a row or column.<br>
+            <span style="color:#f59e0b; font-size:0.85rem;">[Rules: Red on Row C. Blue on 100 Ω. Yellow on Row A at 10 Ω. Avoid Row D.]</span>
+          </p>
+          <div class="cable-selector-bar">
+            <button id="btn-cable-yellow" class="cable-btn active-cable" style="border-left:4px solid #eab308;">Yellow Cable</button>
+            <button id="btn-cable-red" class="cable-btn" style="border-left:4px solid #ef4444;">Red Cable</button>
+            <button id="btn-cable-blue" class="cable-btn" style="border-left:4px solid #3b82f6;">Blue Cable</button>
+          </div>
+          <div id="patchboard-grid" class="patchboard-grid-wrapper"></div>
+          <div style="font-family:'Courier New', monospace; font-size:1.1rem; color:#f59e0b; margin-bottom:0.5rem;">
+            TOTAL RESISTANCE: <span id="patchboard-resistance" style="font-weight:700;">0 Ω</span>
+          </div>
+          <div id="patchboard-status" style="font-size:0.85rem; color:#94a3b8; font-family:'Cinzel', serif; margin-bottom:1.2rem; min-height:1.2rem; text-align:center;">
+            Click a socket to plug in currently selected patch cable.
+          </div>
+          <div class="puzzle-controls">
+            <button id="btn-master-receiver-power" class="btn-brass" style="background:#0f766e; border-color:#14b8a6;">Engage Master Receiver Power</button>
+            <button id="btn-reset-patchboard" class="btn-brass" style="background:#374151; border-color:#4b5563;">Reset Patch Cables</button>
+          </div>
+        </div>
+
+        <!-- 5. Story 2: Number Station Decrypt -->
+        <div id="puzzle-section-numberstation" style="display:none; flex-direction:column; align-items:center; width:100%;">
+          <p class="puzzle-instruction">
+            Incoming numbers station broadcast: <strong>08 - 12 - 17 - 20 - 06</strong>.<br>
+            <span style="color:#f59e0b; font-size:0.85rem;">[Clue: Subtract your twin bond (2) from each frequency number to decrypt channel override.]</span>
+          </p>
+          <div id="numberstation-inputs" class="cipher-inputs-wrapper"></div>
+          <div id="numberstation-status" style="font-size:0.85rem; color:#94a3b8; font-family:'Cinzel', serif; margin-bottom:1rem; text-align:center;">
+            Enter 5-letter frequency channel name.
+          </div>
+          <div class="puzzle-controls">
+            <button id="btn-replay-broadcast" class="btn-brass">Replay Shortwave Broadcast</button>
+            <button id="btn-submit-teletype" class="btn-brass" style="background:#0f766e; border-color:#14b8a6;">Transmit Channel Override</button>
+          </div>
+          <div id="teletype-output-paper" class="teletype-paper" style="display:none;"></div>
+        </div>
+
+        <!-- 6. Story 2: Emergency Polyphonic Transmitter -->
+        <div id="puzzle-section-transmitter" style="display:none; flex-direction:column; align-items:center; width:100%;">
+          <p class="puzzle-instruction">
+            Tune the 4 acoustic oscillators to the harmonic notes of <em>"The Hymn of the Drowned Bell"</em> to broadcast rescue carrier override through Soviet jamming.
+          </p>
+          <div id="transmitter-sliders" class="transmitter-grid"></div>
+          <div id="transmitter-status" style="font-size:0.85rem; color:#94a3b8; font-family:'Cinzel', serif; margin-bottom:1rem; text-align:center;">
+            Set oscillators to correct harmonic chord.
+          </div>
+          <div class="puzzle-controls">
+            <button id="btn-transmit-rescue" class="btn-brass" style="font-size:1rem; padding:0.8rem 2.2rem; background:#0f766e; border-color:#14b8a6;">
+              Broadcast Rescue Carrier Wave
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story 3 Puzzles -->
+  <div id="puzzle-pigment-scale" class="puzzle-fullscreen-modal" style="display:none;"></div>
+  <div id="puzzle-element-mosaic" class="puzzle-fullscreen-modal" style="display:none;"></div>
+  <div id="puzzle-cosmic-dial" class="puzzle-fullscreen-modal" style="display:none;"></div>
+
+  <!-- Story 4 Puzzles -->
+  <div id="puzzle-life-support" class="puzzle-fullscreen-modal" style="display:none;"></div>
+  <div id="puzzle-spectrometer" class="puzzle-fullscreen-modal" style="display:none;"></div>
+  <div id="puzzle-heritage-core" class="puzzle-fullscreen-modal" style="display:none;"></div>
+
+  <!-- Document & Clue Inspection Modal -->
+  <div id="document-modal">
+    <div class="document-card">
+      <h3 id="document-title">Document</h3>
+      <div id="document-content" class="document-text"></div>
+      <div class="document-close">
+        <button id="document-close" class="btn-brass">Close [ESC]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Scripts -->
+  <script src="js/engine/AudioManager.js?v=20261024_3"></script>
+  <script src="js/engine/PlayerController.js?v=20261024_1"></script>
+  <script src="js/engine/InteractionManager.js?v=20261024_3"></script>
+  <script src="js/engine/SceneManager.js?v=20261024_3"></script>
+  <script src="js/engine/SceneManager2.js?v=20261024_3"></script>
+  <script src="js/engine/SceneManager3.js?v=20261024_3"></script>
+  <script src="js/engine/SceneManager4.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle1_Escapement.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle1_Lockbox.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle1_Orrery.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle2_Patchboard.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle2_NumberStation.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle2_Transmitter.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle3_PigmentScale.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle3_ElementMosaic.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle3_CosmicDial.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle4_LifeSupport.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle4_Spectrometer.js?v=20261024_3"></script>
+  <script src="js/puzzles/Puzzle4_HeritageCore.js?v=20261024_3"></script>
+  <script src="js/story/IntroMontageData.js?v=20261024_3"></script>
+  <script src="js/story/Story1Controller.js?v=20261024_3"></script>
+  <script src="js/story/Story2Controller.js?v=20261024_3"></script>
+  <script src="js/story/Story3Controller.js?v=20261024_3"></script>
+  <script src="js/story/Story4Controller.js?v=20261024_3"></script>
+  <script src="js/story/EpilogueController.js?v=20261024_3"></script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('canvas3d');
+      const audioMgr = new AudioManager();
+
+      // Instantiate all four 3D scenes
+      const sceneMgr1 = new SceneManager(canvas);
+      const sceneMgr2 = new SceneManager2(canvas);
+
+      // Active state
+      let activeSceneMgr = sceneMgr1;
+      let currentStoryId = 1;
+
+      const playerCtrl = new PlayerController(activeSceneMgr.camera, canvas);
+      const interactionMgr = new InteractionManager(activeSceneMgr.camera, activeSceneMgr.scene, canvas);
+
+      // Instantiate scenes 3 and 4 after interaction manager
+      const sceneMgr3 = new SceneManager3(canvas, interactionMgr, audioMgr);
+      const sceneMgr4 = new SceneManager4(canvas, interactionMgr, audioMgr);
+
+      const storyCtrl1 = new Story1Controller(sceneMgr1, playerCtrl, interactionMgr, audioMgr);
+      const storyCtrl2 = new Story2Controller(sceneMgr2, playerCtrl, interactionMgr, audioMgr);
+      const storyCtrl3 = new Story3Controller(sceneMgr3, playerCtrl, interactionMgr, audioMgr);
+      const storyCtrl4 = new Story4Controller(sceneMgr4, playerCtrl, interactionMgr, audioMgr);
+      const epilogueCtrl = new EpilogueController(audioMgr);
+      let activeStoryCtrl = storyCtrl1;
+
+      window.sceneManager = activeSceneMgr;
+      window.playerController = playerCtrl;
+      window.storyController = activeStoryCtrl;
+      window.interactionManager = interactionMgr;
+      window.sceneManager1 = sceneMgr1;
+      window.sceneManager2 = sceneMgr2;
+      window.sceneManager3 = sceneMgr3;
+      window.sceneManager4 = sceneMgr4;
+      window.storyController1 = storyCtrl1;
+      window.storyController2 = storyCtrl2;
+      window.storyController3 = storyCtrl3;
+      window.storyController4 = storyCtrl4;
+      window.epilogueController = epilogueCtrl;
+      window.openEpilogueModal = () => epilogueCtrl.open();
+
+      // Menu toggle
+      window.toggleJournalMenu = function(forceState) {
+        const journal = document.getElementById('journal-drawer');
+        if (!journal) return;
+        const isOpen = journal.classList.contains('open');
+        const shouldOpen = (forceState !== undefined) ? forceState : !isOpen;
+
+        if (shouldOpen) {
+          journal.classList.add('open');
+          journal.style.display = 'flex';
+          if (document.exitPointerLock) document.exitPointerLock();
+          if (playerCtrl) playerCtrl.isLocked = false;
+        } else {
+          journal.classList.remove('open');
+          journal.style.display = 'none';
+          if (playerCtrl) playerCtrl.lock();
+        }
+      };
+
+      // Function to switch between Story 1, Story 2, Story 3, and Story 4
+      window.loadStory = function(storyId, playCutscene = true) {
+        currentStoryId = storyId;
+
+        // Deactivate previous active story safely
+        try {
+          if (activeStoryCtrl && activeStoryCtrl.deactivate) {
+            activeStoryCtrl.deactivate();
+          }
+        } catch (err) {
+          console.warn('Error deactivating previous story:', err);
+        }
+
+        interactionMgr.clear();
+
+        // Update Top HUD badge
+        const badge = document.getElementById('hud-level-badge');
+        if (badge) {
+          if (storyId === 1) badge.innerHTML = '✦ Story 1: The Watchmaker\'s Orrery (London, 1892)';
+          else if (storyId === 2) badge.innerHTML = '✦ Story 2: The Whispering Wire (Svalbard, 1974)';
+          else if (storyId === 3) badge.innerHTML = '✦ Story 3: The Heretic\'s Palette (Venice, 1577)';
+          else if (storyId === 4) badge.innerHTML = '✦ Story 4: The Last Cradle (Deep Space, 2188)';
+        }
+
+        // Hide toggle containers
+        const t1 = document.getElementById('part2-toggle-container');
+        const t2 = document.getElementById('part2-story2-toggle-container');
+        const t3 = document.getElementById('part2-story3-toggle-container');
+        if (t1 && storyId !== 1) t1.style.display = 'none';
+        if (t2) t2.style.display = (storyId === 2) ? 'block' : 'none';
+        if (t3) t3.style.display = (storyId === 3) ? 'block' : 'none';
+
+        if (storyId === 1) {
+          activeSceneMgr = sceneMgr1;
+          activeStoryCtrl = storyCtrl1;
+          playerCtrl.camera = sceneMgr1.camera;
+          playerCtrl.camera.position.set(2.2, 1.65, 2.5);
+          playerCtrl.yaw = Math.PI * 0.5;
+          playerCtrl.pitch = -0.08;
+          playerCtrl.bounds = {
+            minX: -2.6,
+            maxX: 2.6,
+            minZ: storyCtrl1.hasDoorsUnlocked ? -3.6 : 0.35,
+            maxZ: 4.6
+          };
+          interactionMgr.camera = sceneMgr1.camera;
+          interactionMgr.scene = sceneMgr1.scene;
+          audioMgr.stopBlizzardWind();
+          audioMgr.startAmbientClock();
+
+          window.sceneManager = sceneMgr1;
+          window.storyController = storyCtrl1;
+        } else if (storyId === 2) {
+          activeSceneMgr = sceneMgr2;
+          activeStoryCtrl = storyCtrl2;
+          playerCtrl.camera = sceneMgr2.camera;
+          playerCtrl.camera.position.set(2.0, 1.65, 0.0);
+          playerCtrl.yaw = Math.PI * 0.5;
+          playerCtrl.pitch = -0.08;
+          playerCtrl.bounds = {
+            minX: -2.6,
+            maxX: 2.6,
+            minZ: -2.5,
+            maxZ: 2.5
+          };
+          interactionMgr.camera = sceneMgr2.camera;
+          interactionMgr.scene = sceneMgr2.scene;
+          audioMgr.startBlizzardWind();
+
+          window.sceneManager = sceneMgr2;
+          window.storyController = storyCtrl2;
+        } else if (storyId === 3) {
+          activeSceneMgr = sceneMgr3;
+          activeStoryCtrl = storyCtrl3;
+          playerCtrl.camera = sceneMgr3.camera;
+          playerCtrl.camera.position.set(0, 1.65, 2.5);
+          playerCtrl.yaw = 0;
+          playerCtrl.pitch = -0.05;
+          playerCtrl.bounds = {
+            minX: -3.4,
+            maxX: 3.4,
+            minZ: -6.0,
+            maxZ: 5.8
+          };
+          interactionMgr.camera = sceneMgr3.camera;
+          interactionMgr.scene = sceneMgr3.scene;
+          audioMgr.stopBlizzardWind();
+
+          window.sceneManager = sceneMgr3;
+          window.storyController = storyCtrl3;
+        } else if (storyId === 4) {
+          activeSceneMgr = sceneMgr4;
+          activeStoryCtrl = storyCtrl4;
+          playerCtrl.camera = sceneMgr4.camera;
+          playerCtrl.camera.position.set(0, 1.65, 3.2);
+          playerCtrl.yaw = 0;
+          playerCtrl.pitch = -0.04;
+          playerCtrl.bounds = {
+            minX: -3.5,
+            maxX: 3.5,
+            minZ: -4.8,
+            maxZ: 5.0
+          };
+          interactionMgr.camera = sceneMgr4.camera;
+          interactionMgr.scene = sceneMgr4.scene;
+          audioMgr.stopBlizzardWind();
+
+          window.sceneManager = sceneMgr4;
+          window.storyController = storyCtrl4;
+        }
+
+        // ACTIVATE NEW STORY!
+        activeStoryCtrl.activate();
+
+        // Close menu
+        window.toggleJournalMenu(false);
+
+        if (playCutscene) activeStoryCtrl.startStory();
+        else activeStoryCtrl.endCutscene();
+      };
+
+      // Start story on click
+      window.startGame = function(storyId = 1) {
+        const startOverlay = document.getElementById('start-overlay');
+        if (startOverlay) startOverlay.style.display = 'none';
+        audioMgr.init();
+        window.loadStory(storyId, true);
+      };
+
+      // Hook up Story Switcher Buttons
+      const btnStory1 = document.getElementById('btn-switch-story1');
+      if (btnStory1) {
+        btnStory1.onclick = () => window.loadStory(1, true);
+      }
+      const btnStory2 = document.getElementById('btn-switch-story2');
+      if (btnStory2) {
+        btnStory2.onclick = () => window.loadStory(2, true);
+      }
+      const btnStory3 = document.getElementById('btn-switch-story3');
+      if (btnStory3) {
+        btnStory3.onclick = () => window.loadStory(3, true);
+      }
+      const btnStory4 = document.getElementById('btn-switch-story4');
+      if (btnStory4) {
+        btnStory4.onclick = () => window.loadStory(4, true);
+      }
+      const btnEpilogue = document.getElementById('btn-open-epilogue');
+      if (btnEpilogue) {
+        btnEpilogue.onclick = () => window.openEpilogueModal();
+      }
+
+      // Hook up Part 2 Simulation buttons
+      const part2Btn1 = document.getElementById('btn-unlock-part2');
+      if (part2Btn1) {
+        part2Btn1.onclick = () => {
+          storyCtrl1.unlockPart2Coordinates();
+        };
+      }
+      const part2Btn2 = document.getElementById('btn-unlock-story2-part2');
+      if (part2Btn2) {
+        part2Btn2.onclick = () => {
+          storyCtrl2.unlockPart2Chords();
+        };
+      }
+      const part2Btn3 = document.getElementById('btn-unlock-story3-part2');
+      if (part2Btn3) {
+        part2Btn3.onclick = () => {
+          storyCtrl3.puzzleDial.open();
+        };
+      }
+
+      // Pre-activate default Story 1 so interactions work right away
+      storyCtrl1.activate();
+
+      // Support URL query params for direct scene preview/testing (?story=1..4&yaw=..&pitch=..&x=..&z=..)
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('story')) {
+        const sId = parseInt(params.get('story'), 10);
+        const startOverlay = document.getElementById('start-overlay');
+        if (startOverlay) startOverlay.style.display = 'none';
+        window.loadStory(sId, false);
+        const nb = document.getElementById('notification-banner');
+        if (nb) nb.classList.remove('visible');
+        const sb = document.getElementById('subtitle-bar');
+        if (sb) sb.classList.remove('visible');
+        if (params.has('openDoors') && sId === 1) {
+          sceneMgr1.openObservatoryDoors();
+        }
+        if (params.has('x') && params.has('z')) {
+          playerCtrl.camera.position.set(
+            parseFloat(params.get('x')),
+            parseFloat(params.get('y') || '1.65'),
+            parseFloat(params.get('z'))
+          );
+        }
+        if (params.has('yaw')) playerCtrl.yaw = parseFloat(params.get('yaw'));
+        if (params.has('pitch')) playerCtrl.pitch = parseFloat(params.get('pitch'));
+      }
+      if (params.has('epilogue')) {
+        const startOverlay = document.getElementById('start-overlay');
+        if (startOverlay) startOverlay.style.display = 'none';
+        window.openEpilogueModal();
+      }
+
+      // Main Animation & Render Loop
+      const clock = new THREE.Clock();
+      function loop() {
+        requestAnimationFrame(loop);
+        const delta = clock.getDelta();
+        playerCtrl.update(delta);
+        interactionMgr.update();
+        activeSceneMgr.update();
+        activeSceneMgr.render();
+      }
+      loop();
+    });
+  </script>
+</body>
+</html>
